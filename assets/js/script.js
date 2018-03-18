@@ -217,7 +217,7 @@ function montarEventosSeries(data, params) {
                     <a href="${eventoSerie.urls[0].url}">
                         <figure>
                             <img src="${eventoSerie.thumbnail.path}.${eventoSerie.thumbnail.extension}" title="${eventoSerie.title}" alt="${eventoSerie.title}" />
-                            <figcaption>${eventoSerie.title}</figcaption>
+                            <figcaption>${eventoSerie.title}<small>${eventoSerie.description}</small></figcaption>
                             <span class="personagens">Personagens: ${eventoSerie.characters.available}</span>
                             <span class="quadrinhos">Quadrinhos: ${eventoSerie.comics.available}</span>
                             <span class="criadores">Criadores: ${eventoSerie.creators.available}</span>

@@ -253,9 +253,9 @@ input {
 }
     
 .popup-container .thumbnail {
+    display: block;
     width: 100%;
     height: 150px;
-    position: relative;
 }
 .popup-container .informacoes {
     font-size: 16px;
@@ -287,7 +287,7 @@ input {
     height: 33.33%;
 }
 
-.informacoes figure {
+.popup figure {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -297,14 +297,14 @@ input {
     background: #000;
 }
 
-figure img {
+.popup figure img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     opacity: 0.75;
 }
 
-figure figcaption {
+.popup figure figcaption {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -314,6 +314,13 @@ figure figcaption {
     font-weight: 800;
     text-transform: uppercase;
     color: #FFF;
+}
+
+.popup figure figcaption small {
+    font-size: 10px;
+    font-weight: 200;
+    width: 100%;
+    display: none;
 }
 
 span.personagens,
@@ -402,4 +409,9 @@ span.criadores {
     .paginacao .paginacao-direita {
         margin-left: 5px;
     }
+
+    .popup figure figcaption small {
+        display: block;
+    }
+    
 }
