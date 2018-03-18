@@ -1,0 +1,369 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.cabecalho {
+    width: 100%;
+    color: #D42026;
+    padding: 12px 42px;
+}
+
+.titulo {
+    text-transform: uppercase;
+    opacity: 1;
+    margin-bottom: 12px;
+    position: relative;
+    font-weight: 200;
+}
+
+.titulo-negrito {
+    font-weight: 900;
+}
+
+.titulo-negrito:after {
+    content: " ";
+    height: 4px;
+    width: 54px;
+    background-color: #D42026;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+.candidato {
+    position: absolute;
+    top: 20px;
+    right: 42px;
+    display: none;
+}
+
+label {
+    width: 100%;
+    display: block;
+}
+
+input {
+    width: 100%;
+    height: 31px;
+    line-height: 31px;
+    border: solid 1px #A5A5A5;
+    border-radius: 4px;
+}
+
+.tabela-resultado {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.tabela-resultado .row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tabela-resultado .row .col {
+    width: 100%;
+    display: none;
+}
+
+.tabela-resultado .row .col:first-child {
+    display: flex;
+}
+
+.tabela-resultado header.row .col {
+    padding: 0px 18px;
+    color: #FFFFFF;
+    height: 37px;
+    line-height: 37px;
+    background-color: #D42026;
+}
+
+.tabela-resultado header.row .col:first-child {
+    padding: 0px 18px 0px 101px;
+}
+
+.tabela-resultado section.row .col {
+    padding: 18px;
+    font-size: 21px;
+    vertical-align: middle;
+    height: 112px;
+    align-items: center;
+    align-content: stretch;
+}
+
+.tabela-resultado section.row {
+    border-bottom: solid 1px #D42026;
+    cursor: pointer;
+}
+
+.tabela-resultado section.row:hover {
+    background-color: rgba(212, 32, 38, 0.1);
+}
+
+.tabela-resultado header.row, 
+.tabela-resultado section.row {
+    flex: 0 1 auto;
+}
+
+.tabela-resultado footer.row {
+    flex: 1 1 auto;
+}
+
+.tabela-resultado footer.row .col {
+    padding: 18px 30px 24px 18px;
+    font-size: 21px;
+    vertical-align: middle;
+    color: #D20A0A;
+    height: 100%;
+    text-align: center;
+}
+
+.tabela-resultado .avatar {
+    width: 58px;
+    height: 58px;
+    object-fit: cover;
+    border-radius: 100%;
+    margin-right: 25px;
+}
+
+.paginacao {
+    margin: 0 auto;
+}
+
+.paginacao .paginacao-esquerda,
+.paginacao .paginacao-direita,
+.paginacao .paginacao-pagina {
+    border: none;
+    background: none;
+    padding: 0px;
+    margin: 0px;
+    color: #D42026;
+}
+
+.paginacao .paginacao-esquerda,
+.paginacao .paginacao-direita {
+    height: 16px;
+    width: 12px;
+}
+
+.paginacao .paginacao-esquerda {
+    margin-right: 55px;
+}
+
+.paginacao .paginacao-direita {
+    margin-left: 55px;
+}
+
+.paginacao .paginacao-esquerda[disabled],
+.paginacao .paginacao-direita[disabled] {
+    opacity: 0.35;
+}
+
+.paginacao .paginacao-pagina {
+    color: #D42026;
+    font-size: 21px;
+    border: solid 1px #D42026;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 100%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.paginacao .paginacao-pagina.ativo,
+.paginacao .paginacao-pagina:hover,
+.paginacao .paginacao-pagina:active {
+    color: #FFF;
+    background-color: #D42026;
+}
+
+.rodape {
+    height: 12px;
+    width: 100%;
+    background-color: #D42026;
+}
+
+.mensagem-erro {
+    padding: 10px;
+    color: #D42026;
+    font-size: 21px;
+    text-align: center;
+}
+
+.lista {
+    font-size: 14px;
+}
+
+.popup {
+    z-index: 1;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.75);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 5%;
+}
+
+.popup-container {
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-container .thumbnail, 
+.popup-container .informacoes {
+    height: 50%;
+    width: 100%;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.popup-container .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.popup-container .informacoes .info {
+    padding: 5px 10px;
+}
+
+.popup-container .informacoes .info span {
+    font-weight: 800;
+}
+
+.close {
+    color: #FFF;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}  
+
+.quadrinhos {
+    display: none;
+}
+
+@media only screen and (min-width: 768px) {
+
+    main {
+        padding: 0px 42px;
+    }
+
+    .cabecalho {
+        padding: 20px 42px 34px 42px;
+    }
+
+    .titulo {
+        font-size: 27px;
+        margin-bottom: 34px;
+    }
+
+    .titulo-negrito:after {
+        bottom: -10px;
+    }
+
+    .candidato {
+        display: block;
+    }
+
+    input {
+        width: 400px;
+    }
+
+    .tabela-resultado header.row .col,
+    .tabela-resultado section.row .col {
+        display: flex;
+        margin-right: 10px;
+        width: 25%;
+    }
+
+    .tabela-resultado header.row .col:last-child,
+    .tabela-resultado section.row .col:last-child {
+        width: 50%;
+    }
+
+    .tabela-resultado header.row .col,
+    .tabela-resultado header.row .col:first-child {
+        padding: 0px 20px;
+    }
+    
+    .tabela-resultado header.row .col:last-child {
+        margin-right: 0px;
+    }
+
+    .tabela-resultado section.row .col {
+        padding: 20px;
+    }
+    
+    .tabela-resultado footer.row .col {
+        padding: 0px 16px;
+    }
+
+    .paginacao .paginacao-pagina {
+        margin: 0 10px;
+    }
+
+    .paginacao .paginacao-esquerda {
+        margin-right: 5px;
+    }
+
+    .paginacao .paginacao-direita {
+        margin-left: 5px;
+    }
+
+    .popup-container {
+        flex-direction: row;
+    }
+
+    .popup-container .thumbnail, 
+    .popup-container .informacoes {
+        height: 100%;
+        width: 50%;
+        font-size: 16px;
+    }
+
+    .quadrinhos {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    .quadrinho {
+        width: 50%;
+    }
+
+    .quadrinho img {
+        width: 100%;
+        object-fit: cover;
+        transition: width 0.35s ease-in-out;
+    }
+
+    .quadrinho img:hover {
+        width: 120%;
+    }
+}
