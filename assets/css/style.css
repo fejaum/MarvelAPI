@@ -6,6 +6,11 @@ html, body {
     height: 100%;
 }
 
+a {
+    color: #D42026;
+    text-decoration: none;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
@@ -235,23 +240,26 @@ input {
 
 .popup-container .thumbnail, 
 .popup-container .informacoes {
-    height: 50%;
     width: 100%;
     font-size: 14px;
-    overflow: hidden;
 }
 
-.popup-container .thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
 .popup-container .informacoes .info {
     padding: 5px 10px;
 }
 
 .popup-container .informacoes .info span {
     font-weight: 800;
+}
+    
+.popup-container .thumbnail {
+    width: 100%;
+    height: 150px;
+    position: relative;
+}
+.popup-container .informacoes {
+    font-size: 16px;
+    display: flex;
 }
 
 .close {
@@ -264,8 +272,67 @@ input {
     cursor: pointer;
 }  
 
-.quadrinhos {
-    display: none;
+.eventos,
+.series {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    align-content: stretch;
+}
+
+.evento,
+.serie {
+    width: 100%;
+    height: 33.33%;
+}
+
+.informacoes figure {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.75;
+}
+
+figure figcaption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #FFF;
+}
+
+span.personagens,
+span.quadrinhos,
+span.criadores {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #FFF;
+    background: #000;
+    padding: 3px;
+}
+
+span.quadrinhos {
+    top: 35px;
+}
+
+span.criadores {
+    top: 65px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -334,36 +401,5 @@ input {
 
     .paginacao .paginacao-direita {
         margin-left: 5px;
-    }
-
-    .popup-container {
-        flex-direction: row;
-    }
-
-    .popup-container .thumbnail, 
-    .popup-container .informacoes {
-        height: 100%;
-        width: 50%;
-        font-size: 16px;
-    }
-
-    .quadrinhos {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-    }
-
-    .quadrinho {
-        width: 50%;
-    }
-
-    .quadrinho img {
-        width: 100%;
-        object-fit: cover;
-        transition: width 0.35s ease-in-out;
-    }
-
-    .quadrinho img:hover {
-        width: 120%;
     }
 }

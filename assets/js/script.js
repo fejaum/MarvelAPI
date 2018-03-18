@@ -6,8 +6,7 @@ let buscaNome = document.querySelector("#buscaNome"),
         maxResultado: 0,
         numeroPaginas: 0,
         paginaInicial: 0,
-        listagemEventos: 3,
-        listagemSeries: 3,
+        listagemEventosSeries: 3,
         qtdPorPagina: 4,
         buscaNome: null,
         botoesPaginacao: null,
@@ -36,7 +35,7 @@ function buscaPersonagem() {
 
 }
 
-function montaLista(data) {
+function montaLista(data, params) {
 
     let tabelaResultado = document.querySelector(".tabela-resultado");
 
@@ -62,7 +61,7 @@ function montaLista(data) {
 
             if (personagem.series) {
                 series = `<ul>`;                
-                for (let x = 0, len = (personagem.series.items.length > configPersonagem.listagemSeries) ? configPersonagem.listagemSeries : personagem.series.items.length; x < len; x++) {
+                for (let x = 0, len = (personagem.series.items.length > configPersonagem.listagemEventosSeries) ? configPersonagem.listagemEventosSeries : personagem.series.items.length; x < len; x++) {
                     series = series + `<li class='lista'>${personagem.series.items[x].name}</li>`
                 }
                 series = series + `</ul>`;
@@ -70,7 +69,7 @@ function montaLista(data) {
 
             if (personagem.events) {
                 eventos = `<ul>`;
-                for (let x = 0, len = (personagem.events.items.length > configPersonagem.listagemEventos) ? configPersonagem.listagemEventos : personagem.events.items.length; x < len; x++) {
+                for (let x = 0, len = (personagem.events.items.length > configPersonagem.listagemEventosSeries) ? configPersonagem.listagemEventosSeries : personagem.events.items.length; x < len; x++) {
                     eventos = eventos + `<li class='lista'>${personagem.events.items[x].name}</li>`
                 }
                 eventos = eventos + `</ul>`;
@@ -175,7 +174,7 @@ function pegaDetalhes(id) {
     }
 }
 
-function abrirDetalhes(data) {
+function abrirDetalhes(data, params) {
     if (data) {
         let personagem = data.data.results[0],
             imagem;
@@ -183,57 +182,61 @@ function abrirDetalhes(data) {
             imagem = `<img src="${personagem.thumbnail.path}.${personagem.thumbnail.extension}" alt="${personagem.name}" title="${personagem.name}" />`
         let innerHTML = `
             <div class="popup-container">
-                <figure class="thumbnail">${imagem}</figure>
+                <figure class="thumbnail">
+                    ${imagem}
+                    <figcaption>${personagem.name}</figcaption>
+                </figure>
                 <div class="informacoes">
-                    <h2 class="info"><span>Informações</span></h2>
-                    <ul>
-                        <li class="info">Nome: <span>${personagem.name}</span></li>
-                        <li class="info">Descrição: <span>${personagem.description}</span></li>
-                        <li class="info">Eventos: <span>${personagem.events.available}</span></li>
-                        <li class="info">Séries: <span>${personagem.series.available}</span></li>
-                        <li class="info">Histórias: <span>${personagem.stories.available}</span></li>
-                        <li class="info">Quadrinhos: <span>${personagem.comics.available}</span></li>
-                    </ul>
-                    <div class="quadrinhos"></div>
+                    <div class="eventos"></div>
+                    <div class="series"></div>
                 </div>
             </div>
             <span class="close" onclick="fecharPopUp()">&times;</span>`;
         popup.innerHTML = innerHTML;
-        if (personagem.comics.available > 0)
-            pegarQuadrinhos(personagem.comics);
+        if (personagem.events.available > 0)
+            pegarEventosSeries(personagem.events, 'evento');
+        if (personagem.series.available > 0)
+            pegarEventosSeries(personagem.series, 'serie');
         abrirPopUp();
     }
 }
 
-function pegarQuadrinhos(quadrinhos) {
-    if (quadrinhos) {
-        for (let i = 0, len = (quadrinhos.available > 2) ? 2 : quadrinhos.available; i < len; i++) {
-            reqAPI(quadrinhos.items[i].resourceURI + '?apikey=' + configPersonagem.publicKey, montarQuadrinhos)
+function pegarEventosSeries(eventosSeries, tipo) {
+    if (eventosSeries) {
+        for (let i = 0, len = (eventosSeries.available > configPersonagem.listagemEventosSeries) ? configPersonagem.listagemEventosSeries : eventosSeries.available; i < len; i++) {
+            reqAPI(eventosSeries.items[i].resourceURI + '?apikey=' + configPersonagem.publicKey, montarEventosSeries, { tipo: tipo })
         }
     }
 }
 
-function montarQuadrinhos(data) {
+function montarEventosSeries(data, params) {
     if (data) {
-        let comic = data.data.results[0],
+        let eventoSerie = data.data.results[0],
             innerHTML = `
-                <div class="quadrinho">
-                    <a href="${comic.urls[0].url}">
-                        <img src="${comic.thumbnail.path}.${comic.thumbnail.extension}" title="${comic.title}" alt="${comic.title}" /> 
+                <div class="${params.tipo}">
+                    <a href="${eventoSerie.urls[0].url}">
+                        <figure>
+                            <img src="${eventoSerie.thumbnail.path}.${eventoSerie.thumbnail.extension}" title="${eventoSerie.title}" alt="${eventoSerie.title}" />
+                            <figcaption>${eventoSerie.title}</figcaption>
+                            <span class="personagens">Personagens: ${eventoSerie.characters.available}</span>
+                            <span class="quadrinhos">Quadrinhos: ${eventoSerie.comics.available}</span>
+                            <span class="criadores">Criadores: ${eventoSerie.creators.available}</span>
+                        </figure>
                     </a>
                 </div>`;
-        document.querySelector(".quadrinhos").innerHTML = document.querySelector(".quadrinhos").innerHTML + innerHTML;
+        console.log(eventoSerie);
+        document.querySelector("." + params.tipo + "s").innerHTML = document.querySelector("." + params.tipo + "s").innerHTML + innerHTML;
     }
 }
 
-function reqAPI(url, callback) {
+function reqAPI(url, callback, params) {
     let req = new XMLHttpRequest();
     req.open('GET', url, true);
     req.onload = function() {
         if (req.status >= 200 && req.status < 400) {
             let data = JSON.parse(req.responseText);
             if (data && data.code == 200)
-                callback(data);
+                callback(data, params);
         } else
             callback();
     }
